@@ -68,7 +68,11 @@ async function main (): Promise<string> {
   return body.read().toString()
 }
 
-main().catch(error => {
+main().then(content => {
+  console.log('Bought content: ')
+  console.log(content)
+  process.exit(0)
+}).catch(error => {
   console.error(error)
   process.exit(1)
 })
