@@ -15,7 +15,6 @@ import PostgresChannelsDatabase from '../lib/storage/postgresql/PostgresChannels
 import PostgresTokensDatabase from '../lib/storage/postgresql/PostgresTokensDatabase'
 import PostgresPaymentsDatabase from '../lib/storage/postgresql/PostgresPaymentsDatabase'
 import { Unidirectional } from '@machinomy/contracts'
-import * as uuid from 'uuid'
 import * as sinon from 'sinon'
 
 describe('Storage', () => {
