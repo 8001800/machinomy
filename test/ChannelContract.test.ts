@@ -32,11 +32,7 @@ describe('ChannelContract', () => {
 
     uuidStub = sinon.stub(uuid, 'v4').returns('0e29e61f-256b-40b2-a628-0f8181a1b5ff')
 
-    contractStub = sinon.stub(Unidirectional, 'contract')
-    contractStub.withArgs(web3.currentProvider).returns({
-      deployed: sinon.stub().resolves(deployed)
-    })
-
+    sinon.stub(Unidirectional, 'contract').resolves(Promise.resolve(deployed))
     contract = new ChannelContract(web3)
   })
 
