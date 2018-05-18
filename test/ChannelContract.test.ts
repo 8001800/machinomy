@@ -14,13 +14,9 @@ describe('ChannelContract', () => {
   const SIG = Signature.fromRpcSig('0xd8a923b39ae82bb39d3b64d58f06e1d776bcbcae34e5b4a6f4a952e8892e6a5b4c0f88833c06fe91729057035161e599fda536e8ce0ab4be2c214d6ea961e93a01')
 
   let web3: Web3
-
   let deployed: any
-
   let contractStub: sinon.SinonStub
-
   let uuidStub: sinon.SinonStub
-
   let contract: ChannelContract
 
   beforeEach(() => {
@@ -32,7 +28,10 @@ describe('ChannelContract', () => {
 
     uuidStub = sinon.stub(uuid, 'v4').returns('0e29e61f-256b-40b2-a628-0f8181a1b5ff')
 
-    sinon.stub(Unidirectional, 'contract').resolves(Promise.resolve(deployed))
+    contractStub = sinon.stub(Unidirectional, 'contract')
+    contractStub.withArgs(web3.currentProvider).returns({
+      deployed: sinon.stub().resolves(Promise.resolve(deployed))
+    })
     contract = new ChannelContract(web3)
   })
 
