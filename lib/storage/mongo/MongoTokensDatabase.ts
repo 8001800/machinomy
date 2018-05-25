@@ -4,11 +4,12 @@ import AbstractTokensDatabase from '../AbstractTokensDatabase'
 import ChannelId from '../../ChannelId'
 
 export default class MongoTokensDatabase extends AbstractTokensDatabase<EngineMongo> {
-  async save (token: string, channelId: ChannelId | string): Promise<void> {
+  async save (token: string, channelId: ChannelId | string, meta: string): Promise<void> {
     await this.engine.exec(client => {
       const tokenDocument = {
         kind: this.kind,
         token: token.toString(),
+        meta: meta,
         channelId: channelId.toString()
       }
 

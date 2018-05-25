@@ -8,14 +8,15 @@ async function createTable (client: SqliteDatastore) {
 }
 
 export default class SqliteTokensDatabase extends AbstractTokensDatabase<EngineSqlite> {
-  async save (token: string, channelId: ChannelId | string): Promise<void> {
+  async save (token: string, channelId: ChannelId | string, meta: string): Promise<void> {
     return this.engine.exec(async client => {
       await createTable(client)
-      return client.run('INSERT INTO token(token, "channelId", kind) VALUES ($token, $channelId, $kind)',
+      return client.run('INSERT INTO token(token, "channelId", kind, meta) VALUES ($token, $channelId, $kind, $meta)',
         {
           $token: token,
           $channelId: channelId.toString(),
-          $kind: this.kind
+          $kind: this.kind,
+          $meta: meta
         })
     })
   }

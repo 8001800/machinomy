@@ -3,13 +3,14 @@ import EnginePostgres from './EnginePostgres'
 import AbstractTokensDatabase from '../AbstractTokensDatabase'
 
 export default class PostgresTokensDatabase extends AbstractTokensDatabase<EnginePostgres> {
-  save (token: string, channelId: ChannelId | string): Promise<void> {
+  save (token: string, channelId: ChannelId | string, meta: string): Promise<void> {
     return this.engine.exec((client: any) => client.query(
-      'INSERT INTO token(token, "channelId", kind) VALUES ($1, $2, $3)',
+      'INSERT INTO token(token, "channelId", kind, meta) VALUES ($1, $2, $3, $4)',
       [
         token,
         channelId.toString(),
-        this.kind
+        this.kind,
+        meta
       ]
     ))
   }

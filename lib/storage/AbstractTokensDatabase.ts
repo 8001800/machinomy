@@ -12,7 +12,7 @@ export default abstract class AbstractTokensDatabase<T extends IEngine> implemen
     this.engine = engine
   }
 
-  abstract save (token: string, channelId: ChannelId | string): Promise<void>
+  abstract save (token: string, channelId: ChannelId | string, meta: string): Promise<void>
 
   abstract isPresent (token: string): Promise<boolean>
 }

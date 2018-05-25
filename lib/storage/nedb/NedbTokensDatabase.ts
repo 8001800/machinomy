@@ -3,10 +3,11 @@ import EngineNedb from './EngineNedb'
 import ChannelId from '../../ChannelId'
 
 export default class NedbTokensDatabase extends AbstractTokensDatabase<EngineNedb> {
-  async save (token: string, channelId: ChannelId | string): Promise<void> {
+  async save (token: string, channelId: ChannelId | string, meta: string): Promise<void> {
     const tokenDocument = {
       kind: this.kind,
       token: token.toString(),
+      meta: meta,
       channelId: channelId.toString()
     }
     await this.engine.exec(async client => {

@@ -113,7 +113,7 @@ export default class ChannelManager extends EventEmitter implements IChannelMana
         channel.spent = payment.value
         const token = this.web3.sha3(JSON.stringify(payment)).toString()
         await this.channelsDao.saveOrUpdate(channel)
-        await this.tokensDao.save(token, payment.channelId)
+        await this.tokensDao.save(token, payment.channelId, payment.meta)
         await this.paymentsDao.save(token, payment)
         return token
       }
