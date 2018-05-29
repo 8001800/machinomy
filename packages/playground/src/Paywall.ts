@@ -64,12 +64,13 @@ export default class Paywall {
   }
 
   guard (price: BigNumber.BigNumber, callback: express.RequestHandler): express.RequestHandler {
-    let _guard = (fixedPrice: BigNumber.BigNumber, req: express.Request, res: express.Response, next: express.NextFunction, error: any, token?: string) => {
+    let _guard = async (fixedPrice: BigNumber.BigNumber, req: express.Request, res: express.Response, next: express.NextFunction, error: any, token?: string) => {
       if (error || !token) {
         log(error)
         this.paymentRequired(fixedPrice, req, res)
       } else {
-        this.machinomy.acceptToken({ token }).then(isOk => {
+        this.machinomy.acceptToken({ token }).then(canAccept => {
+          let isOk = canAccept.status
           if (isOk) {
             log('Got valid paywall token')
             callback(req, res, next)
