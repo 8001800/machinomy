@@ -2,7 +2,10 @@
   "extends": "../../tsconfig",
   "compilerOptions": {
     "sourceRoot": "src/",
-    "outDir": "dist/"
+    "outDir": "dist/",
+    "types": [
+      "@machinomy/types-web3"
+    ]
   },
   "include": [
     "src/**/*"
