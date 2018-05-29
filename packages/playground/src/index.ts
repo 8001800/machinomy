@@ -18,7 +18,6 @@ async function main () {
   const MNEMONIC = String(process.env.MNEMONIC).trim()
   const PROVIDER_URL = String(process.env.PROVIDER_URL)
   const DATABASE_URL = String(process.env.DATABASE_URL)
-  const GATEWAY_URL = String(process.env.GATEWAY_URL)
 
   const provider = new HDWalletProvider(MNEMONIC, PROVIDER_URL)
   const web3 = new Web3(provider)
