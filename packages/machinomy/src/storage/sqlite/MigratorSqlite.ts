@@ -79,7 +79,7 @@ export default class MigratorSqlite implements IMigrator {
           result.push(filename.slice(0, -3))
         }
       }
-      result = result.sort((a: string, b: string) => a.localeCompare(b))
+      result.sort((a: string, b: string) => a.localeCompare(b))
       console.log('debug::DB migration files: ' + JSON.stringify(result))
       resolve(result)
     })
