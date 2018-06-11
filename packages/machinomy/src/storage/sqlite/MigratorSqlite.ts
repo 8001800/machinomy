@@ -38,7 +38,7 @@ export default class MigratorSqlite implements IMigrator {
     })
   }
 
-  private async getCommonIndex (): Promise<number> {
+  async getCommonIndex (): Promise<number> {
     const migrationsInDB = await this.retrieveUpMigrationList()
     const migrationsInFolder = await this.retrieveInFolderMigrationList()
     let commonIndex = -1
@@ -52,7 +52,7 @@ export default class MigratorSqlite implements IMigrator {
     return Promise.resolve(commonIndex)
   }
 
-  private retrieveUpMigrationList (): Promise<string[]> {
+  retrieveUpMigrationList (): Promise<string[]> {
     return new Promise((resolve) => {
       // tslint:disable-next-line:no-floating-promises
       this.engine.exec((client: any) => client.query(
@@ -68,18 +68,18 @@ export default class MigratorSqlite implements IMigrator {
     })
   }
 
-  private retrieveInFolderMigrationList (): Promise<string[]> {
+  retrieveInFolderMigrationList (): Promise<string[]> {
     return new Promise(async (resolve) => {
       let result: string[] = []
-      const listOfFiles: string[] = fs.readdirSync(process.cwd() + '/migrations/')
-      console.log('debug::' + process.cwd() + '/migrations/')
-      for (let filename in listOfFiles) {
-        const isDir = fs.statSync(process.cwd() + '/migrations/' + listOfFiles[filename]).isDirectory()
+      const listOfFiles: string[] = fs.readdirSync(__dirname + '/../../../migrations/')
+      console.log('debug::' + __dirname + '/../../../migrations/')
+      for (let filename of listOfFiles) {
+        const isDir = fs.statSync(__dirname + '/../../../migrations/' + filename).isDirectory()
         if (!isDir) {
           result.push(filename.slice(0, -3))
         }
       }
-      result.sort((a: string, b: string) => a.localeCompare(b))
+      result.sort()
       console.log('debug::DB migration files: ' + JSON.stringify(result))
       resolve(result)
     })
