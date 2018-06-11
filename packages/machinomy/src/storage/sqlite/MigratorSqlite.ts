@@ -2,7 +2,7 @@ import IMigrator from '../IMigrator'
 import EngineSqlite from './EngineSqlite'
 import * as fs from 'fs'
 const DBMigrate = require('db-migrate')
-const dbmigrate = DBMigrate.getInstance(true, { cwd: '../../../../migrations/' })
+const dbmigrate = DBMigrate.getInstance(true, { cwd: '../../../migrations', config: '../' })
 const LENGTH_OF_MIGRATION_NAME = 14
 
 export default class MigratorSqlite implements IMigrator {
