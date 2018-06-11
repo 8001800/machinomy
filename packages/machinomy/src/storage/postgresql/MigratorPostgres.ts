@@ -54,6 +54,7 @@ export default class MigratorPostgres implements IMigrator {
 
   private retrieveUpMigrationList (): Promise<string[]> {
     return new Promise((resolve) => {
+      // tslint:disable-next-line:no-floating-promises
       this.engine.exec((client: any) => client.query(
         'SELECT name FROM migrations ORDER BY name ASC'
       )).then((res: any) => {

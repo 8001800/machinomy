@@ -85,6 +85,7 @@ export namespace Storage {
     let engine = new EnginePostgres(databaseUrl)
     if (!engine.migrate().isLatest()) {
       if (migrate === undefined || migrate === 'silent') {
+        // tslint:disable-next-line:no-floating-promises
         engine.migrate().sync()
       } else {
         throw new Error('There are non-applied db-migrations!')
