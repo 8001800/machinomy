@@ -71,7 +71,7 @@ export default class MigratorPostgres implements IMigrator {
   private retrieveInFolderMigrationList (): Promise<string[]> {
     return new Promise(async (resolve) => {
       let result: string[] = []
-      const listOfFiles: string[] = fs.readdirSync('../../../migrations/')
+      const listOfFiles: string[] = fs.readdirSync(__dirname + '/../../../migrations/')
       for (let filename in listOfFiles) {
         const isDir = fs.statSync(filename).isDirectory()
         if (!isDir) {
