@@ -71,16 +71,16 @@ export default class MigratorSqlite implements IMigrator {
   private retrieveInFolderMigrationList (): Promise<string[]> {
     return new Promise(async (resolve) => {
       let result: string[] = []
-      const listOfFiles: string[] = fs.readdirSync(__dirname + '/../../../migrations/')
+      const listOfFiles: string[] = fs.readdirSync(__dirname + '/../migrations/')
+      console.log('debug::' + __dirname + '/../migrations/')
       for (let filename in listOfFiles) {
-        const isDir = fs.statSync(filename).isDirectory()
+        const isDir = fs.statSync(__dirname + '/../migrations/' + listOfFiles[filename]).isDirectory()
         if (!isDir) {
-          filename = filename.slice(0, -3)
-          result.push(filename)
-          console.log('debug::DB migration file: ' + filename)
+          result.push(filename.slice(0, -3))
         }
       }
       result = result.sort((a: string, b: string) => a.localeCompare(b))
+      console.log('debug::DB migration files: ' + JSON.stringify(result))
       resolve(result)
     })
   }
